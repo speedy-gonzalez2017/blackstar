@@ -1,4 +1,7 @@
 def __main__(argv)
+  process = Blackstar::Process.new
+  process.handle
+
   host = Blackstar::Host.new
 
   miner = Blackstar::Miner.new(host)

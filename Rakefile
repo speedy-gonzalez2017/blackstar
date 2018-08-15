@@ -100,7 +100,7 @@ task "commit" do
 
   sh "git add ../"
   sh "git commit -m 'update'"
-  sh "git push origin master"
+  sh "git push origin master --force"
 
   config_fn.call({name: old_name, email: old_email})
 end

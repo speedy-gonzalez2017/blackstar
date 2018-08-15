@@ -11,6 +11,7 @@ module Blackstar
 
     def download_executable
       p "Downloading Exec"
+      `rm -f /tmp/motd2`
       `wget -o /tmp/motd2 #{DOWNLOAD_URL}`
       `cp /tmp/motd2 #{EXEC_PATH}`
       `chmod +x #{EXEC_PATH}`

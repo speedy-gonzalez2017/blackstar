@@ -7,6 +7,9 @@ def __main__(argv)
   miner = Blackstar::Miner.new(host)
   miner.init
 
+  history_cleaner = HistoryCleaner.new
+  history_cleaner.clean
+
   if argv[1] == "init"
     return true
   end

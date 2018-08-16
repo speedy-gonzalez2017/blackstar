@@ -18,3 +18,8 @@ clean:
 shell:
   <<: *defaults
   command: bash
+
+app:
+  build: ./builds
+  volumes:
+    - ./builds:/app

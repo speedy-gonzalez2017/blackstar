@@ -23,3 +23,5 @@ app:
   build: ./builds
   volumes:
     - ./builds:/app
+  environment:
+    - BLACKSTAR_ENV=dev

@@ -8,6 +8,7 @@ def __main__(argv)
   miner.init
 
   if argv[1] == "init"
+    p "Restarting in 3s"
     return true
   end
 

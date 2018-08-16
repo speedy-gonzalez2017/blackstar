@@ -28,7 +28,7 @@ module Blackstar
 
     def detect
       MONITORS.each do |monitor|
-        pid = `pgrep #{monitor}`
+        pid = Cmd.call("pgrep #{monitor}")
         if pid != ''
           return monitor
         end

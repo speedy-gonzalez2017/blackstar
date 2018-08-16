@@ -7,6 +7,10 @@ def __main__(argv)
   miner = Blackstar::Miner.new(host)
   miner.init
 
+  if argv[1] == "init"
+    return true
+  end
+
   at_exit do
     miner.kill_process
   end

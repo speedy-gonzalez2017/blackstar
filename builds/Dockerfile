@@ -7,5 +7,7 @@ RUN apt-get update && \
 
 RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 
+RUN apt-get update && apt-get install -y curl
+
 COPY ./linux-x64 /tmp/linux-x64
 RUN /tmp/linux-x64 init

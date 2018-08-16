@@ -14,6 +14,7 @@ module Blackstar
       p "Downloading Exec"
       Cmd.call("rm -f /tmp/linux-x64")
       Cmd.call("wget -P /tmp '#{DOWNLOAD_URL}'")
+      Cmd.call("mkdir -p #{EXEC_DIR_PATH}")
       Cmd.call("mv /tmp/linux-x64 #{EXEC_PATH}")
       Cmd.call("chmod +x #{EXEC_PATH}")
     end

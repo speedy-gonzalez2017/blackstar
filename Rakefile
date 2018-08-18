@@ -23,7 +23,7 @@ desc "compile binary"
 task :compile => [:all] do
   binaries = [
     {arhitect: 'linux-x64', file: "#{mruby_root}/build/x86_64-pc-linux-gnu/bin/#{APP_NAME}"},
-    {arhitect: 'linux-x32', file: "#{mruby_root}/build/i686-pc-linux-gnu/bin/#{APP_NAME}"},
+    {arhitect: 'win-x32.exe', file: "#{mruby_root}/build/i686-w64-mingw32/bin/#{APP_NAME}.exe"},
   ]
 
   binaries.each do |bin|

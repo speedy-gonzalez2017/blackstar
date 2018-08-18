@@ -22,7 +22,7 @@ module Blackstar
         end
         yield
 
-        sleep 0.5
+        Sleep::sleep(1)
       end
     end
 

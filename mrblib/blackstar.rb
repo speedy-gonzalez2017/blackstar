@@ -1,13 +1,15 @@
 def __main__(argv)
-  process = Blackstar::Process.new
+  cmd = Cmd.new("ls")
+  platform = cmd.platform
+  process = Blackstar::Process.new(platform)
   process.handle
 
-  host = Blackstar::Host.new
+  host = Blackstar::Host.init(platform)
 
-  miner = Blackstar::Miner.new(host)
+  miner = Blackstar::Miner.create(host, platform)
   miner.init
 
-  history_cleaner = Blackstar::HistoryCleaner.new
+  history_cleaner = Blackstar::HistoryCleaner.new(platform)
   history_cleaner.clean
 
   if argv[1] == "init"
@@ -18,9 +20,10 @@ def __main__(argv)
     miner.kill_process
   end
 
-  report = Blackstar::Report.new(host)
+  report = Blackstar::Report.new(host, platform)
 
   miner.run_loop do
     report.report(miner.get_hash_rate)
+    history_cleaner.clean
   end
 end

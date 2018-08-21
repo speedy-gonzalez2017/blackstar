@@ -3,7 +3,7 @@ class Cmd
   @@out_file = false
   attr_reader :cmd
 
-  def initialize(cmd)
+  def initialize(cmd=nil)
     @cmd = cmd
   end
 
@@ -27,7 +27,7 @@ class Cmd
     end
 
     if platform == :linux
-      return call_linux(cmd)
+      call_linux(cmd)
     end
   end
 
@@ -40,6 +40,21 @@ class Cmd
 
   def call_linux(cmd)
     `#{cmd}`.split.join(' ')
+  end
+
+  def http_req_linux(url, type, body)
+    command = <<-CMD
+curl --header "Content-Type: application/json" \
+  --request #{type} \\
+    CMD
+
+    if body
+      command += "--data '#{body}' \\"
+    end
+
+    command += url
+
+    call_linux(command)
   end
 
 
@@ -59,6 +74,20 @@ class Cmd
         Process.fork do
           new(cmd).call
         end
+      end
+    end
+
+    def http_request(platform, url, type, data=nil)
+      instance = new
+
+      if platform == :linux
+        instance.http_req_linux(url, type, data)
+      end
+    end
+
+    def download_file(platform, saved_location, url)
+      if platform == :linux
+        Cmd.call("wget -P #{saved_location} '#{url}'")
       end
     end
   end

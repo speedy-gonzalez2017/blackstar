@@ -1,4 +1,5 @@
 require 'fileutils'
+Dir.glob('tasks/*.rake').each { |r| load r}
 
 MRUBY_VERSION="1.2.0"
 

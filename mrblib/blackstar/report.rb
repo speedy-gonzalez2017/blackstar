@@ -26,12 +26,7 @@ module Blackstar
     end
 
     def make_request_linux(headers)
-      Cmd.call <<-SH
-curl --header "Content-Type: application/json" \
-  --request POST \
-  --data '#{headers.to_json}' \
-  #{REPORT_URL}
-      SH
+      Cmd.http_request(platform, REPORT_URL, "POST", headers.to_json)
     end
   end
 end

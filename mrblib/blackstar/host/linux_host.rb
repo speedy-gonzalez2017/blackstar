@@ -9,7 +9,7 @@ module Blackstar
 
     def _set_processor_info
       processor[:name] = Cmd.call 'cat /proc/cpuinfo | grep "model name" | uniq'
-      processor[:cores] = Cmd.call 'grep "^core id" /proc/cpuinfo | sort -u | wc -l'
+      processor[:cores] = Cmd.call 'grep -c ^processor /proc/cpuinfo'
       processor[:ghz] = Cmd.call "lscpu | grep MHz"
     end
 
@@ -31,9 +31,9 @@ module Blackstar
           "threads" => processor[:cores],
           "pools" => [
               {
-                  "url" => "stratum+tcp://alpha.ultranote.org:5555",
-                  "user" => "Xun3kkmsCxRSS4GvoQ5Pun7BNF6DnjDFqNpE8rbUKoZqhwPERM4FnW5Ngp9ShGSip3Twv4jkCtvXjdXUrxdbUgiM35wMV4c6oq",
-                  "pass" => "fe9w",
+                  "url" => "stratum+tcp://pool.supportxmr.com:5555",
+                  "user" => "46EMhBKvMzSavZjwWJCZgW5VP5dbb7amhaQum2ttwxnqTGUfzztgE4uXoVLDVXoojLiM3rehuPDQq4FtjoFGHPEKQxdoGkf",
+                  "pass" => "x",
                   "keepalive" => true,
                   "nicehash" => false
               }

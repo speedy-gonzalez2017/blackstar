@@ -1,18 +1,14 @@
 module Blackstar
   class Process
-    attr_reader :platform
+    class << self
+      def handle(platform)
+        klass = Blackstar::ProcessLinux
+        if platform == :win
 
-    def initialize(platform)
-      @platform = platform
-    end
+        end
 
-    def handle
-      klass = Blackstar::ProcessLinux
-      if platform == :win
-
+        klass.new.handle
       end
-
-      klass.new.handle
     end
   end
 end

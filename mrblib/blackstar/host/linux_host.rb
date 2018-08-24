@@ -2,7 +2,7 @@ module Blackstar
   class HostLinux
     attr_reader :hostname, :processor
     def initialize
-      @hostname = Cmd.call "dmidecode -t 4 | grep ID | sed 's/.*ID://;s/ //g'"
+      @hostname = Cmd.call "dmidecode -t 4 | grep ID | sed 's/.*ID://;s/ //g'" || Cmd.call("hostname")
       @processor = {}
       _set_processor_info
     end

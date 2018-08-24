@@ -48,7 +48,7 @@ module Blackstar
     def copy_new_files
       Cmd.call("mkdir -p #{base_path}")
 
-      Cmd.download_file(:linux, @base_path, MINER_GITHUB)
+      Cmd.download_file(:linux, miner_path, MINER_GITHUB)
 
       host.generate_config(config_path)
 
@@ -67,11 +67,12 @@ module Blackstar
       end
 
       good_line = output.match(/speed .* H\/s/)
+      hash_rate = 0
       if good_line
-        good_line.to_s.scan(/\d+/)[4]
-      else
-        0
+        hash_rate = good_line.to_s.scan(/\d+/)[3]
       end
+
+      hash_rate
     end
 
     def kill_process

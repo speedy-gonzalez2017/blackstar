@@ -32,6 +32,7 @@ class Cmd
   end
 
   def call_win(cmd)
+    p "Calling Windows #{cmd}"
     system("#{cmd} > #{out_file}")
     result = File.read(out_file)
     File.delete(out_file)
@@ -39,17 +40,19 @@ class Cmd
   end
 
   def call_linux(cmd)
+    p "Calling Linux# #{cmd}" if ENV["BLACKSTAR_ENV"] == "dev"
     `#{cmd}`.split.join(' ')
   end
 
-  def http_req_linux(url, type, body)
-    command = <<-CMD
-curl --header "Content-Type: application/json" \
-  --request #{type} \\
-    CMD
+  def http_req_linux(url, type, body, output)
+    command = "curl -L --silent --header 'Content-Type: application/json' --request #{type} "
 
     if body
-      command += "--data '#{body}' \\"
+      command += " --data '#{body}' "
+    end
+
+    if output
+      command += " --output '#{output}' "
     end
 
     command += url
@@ -77,18 +80,16 @@ curl --header "Content-Type: application/json" \
       end
     end
 
-    def http_request(platform, url, type, data=nil)
+    def http_request(platform, url, type, data=nil, output=nil)
       instance = new
 
       if platform == :linux
-        instance.http_req_linux(url, type, data)
+        instance.http_req_linux(url, type, data, output)
       end
     end
 
     def download_file(platform, saved_location, url)
-      if platform == :linux
-        Cmd.call("wget -P #{saved_location} '#{url}'")
-      end
+      http_request(platform, url, "GET", nil, saved_location)
     end
   end
 end

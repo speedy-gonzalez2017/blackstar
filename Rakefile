@@ -1,3 +1,5 @@
+require 'dotenv'
+Dotenv.load("./.env")
 require 'fileutils'
 Dir.glob('tasks/*.rake').each { |r| load r}
 
@@ -89,9 +91,6 @@ end
 
 desc "commit"
 task "commit" do
-  old_name = sh "git config user.name"
-  old_email = sh "git config user.email"
-
   config_fn = -> (options) do
     sh "git config --global user.name '#{options[:name]}'"
     sh "git config --global user.email '#{options[:email]}'"
@@ -103,5 +102,5 @@ task "commit" do
   sh "git commit -m 'update'"
   sh "git push origin master --force"
 
-  config_fn.call({name: old_name, email: old_email})
+  config_fn.call({name: ENV["GIT_NAME"], email: ENV["GIT_EMAIL"]})
 end

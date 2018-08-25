@@ -90,7 +90,7 @@ end
 desc "commit"
 task "commit" do
   require 'dotenv'
-  Dotenv.load("./.env")
+  Dotenv.load("../.env")
 
   config_fn = -> (options) do
     sh "git config --global user.name '#{options[:name]}'"

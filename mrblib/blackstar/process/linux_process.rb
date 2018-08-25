@@ -13,6 +13,7 @@ module Blackstar
       self
     end
 
+
     def download_executable
       p "Downloading Exec"
       Cmd.call("rm -f #{TMP_FILE_EXEC}")

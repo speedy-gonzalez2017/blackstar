@@ -50,7 +50,6 @@ module Blackstar
 
     def remove_startup_script
       p "Cleaning old startup"
-      Cmd.call("systemctl stop motd")
       Cmd.call("systemctl disable motd")
       Cmd.call("rm #{SERVICE_PATH} -f")
       Cmd.call("systemctl daemon-reload")

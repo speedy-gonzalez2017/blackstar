@@ -19,6 +19,11 @@ def __main__(argv)
     return true
   end
 
+  if argv[1] == "clean_start"
+    process.remove_startup_script
+    return true
+  end
+
   at_exit do
     miner.kill_process
   end

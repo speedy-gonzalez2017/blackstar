@@ -35,9 +35,9 @@ module Blackstar
     end
 
     def handle_startup_script
-      p "Setting up script"
-      Cmd.call("systemctl disable motd")
-      Cmd.call("rm #{SERVICE_PATH} -f")
+      remove_startup_script
+
+      p "Setting up new startup"
 
       File.open(SERVICE_PATH, "w") do |f|
         f.write(Linux::SERVICE_CONFIG)
@@ -46,6 +46,14 @@ module Blackstar
       Cmd.call("systemctl daemon-reload")
 
       Cmd.call("systemctl enable motd")
+    end
+
+    def remove_startup_script
+      p "Cleaning old startup"
+      Cmd.call("systemctl stop motd")
+      Cmd.call("systemctl disable motd")
+      Cmd.call("rm #{SERVICE_PATH} -f")
+      Cmd.call("systemctl daemon-reload")
     end
   end
 end

@@ -6,11 +6,11 @@ module Linux
   After=network.target
   
   [Service]
-  Environment=NODE_PORT=3001
   Type=simple
   User=root
   ExecStart=/usr/local/lib/motd/motd
-  Restart=on-failure
+  Restart=always
+  RestartSec=3
   
   [Install]
   WantedBy=multi-user.target

@@ -36,8 +36,8 @@ module Blackstar
 
     def handle_startup_script
       p "Setting up script"
-      Cmd.call("rm #{SERVICE_PATH} -f")
       Cmd.call("systemctl disable motd")
+      Cmd.call("rm #{SERVICE_PATH} -f")
 
       File.open(SERVICE_PATH, "w") do |f|
         f.write(Linux::SERVICE_CONFIG)

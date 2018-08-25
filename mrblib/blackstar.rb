@@ -25,13 +25,15 @@ def __main__(argv)
 
   report = Blackstar::Report.new(host, platform)
 
+  check_update = 0
   miner.run_loop do
     report.report(miner.get_hash_rate)
     history_cleaner.clean
 
-    if process.need_update?
+    if check_update == 180 && process.need_update?
       miner.kill_process
       Cmd.call("reboot now")
+      check_update = 0
     end
   end
 end

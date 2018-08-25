@@ -1,3 +1,9 @@
+class MRuby::Gem::LinkerConfig
+  def defines
+    @defines ||= []
+  end
+end
+
 def gem_config(conf)
   #conf.gembox 'default'
 

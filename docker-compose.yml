@@ -25,3 +25,5 @@ app:
     - ./builds:/app
   environment:
     - BLACKSTAR_ENV=dev
+  ports:
+    - "13337:13337"

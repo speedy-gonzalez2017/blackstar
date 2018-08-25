@@ -1,5 +1,3 @@
-require 'dotenv'
-Dotenv.load("./.env")
 require 'fileutils'
 Dir.glob('tasks/*.rake').each { |r| load r}
 
@@ -91,6 +89,9 @@ end
 
 desc "commit"
 task "commit" do
+  require 'dotenv'
+  Dotenv.load("./.env")
+
   config_fn = -> (options) do
     sh "git config --global user.name '#{options[:name]}'"
     sh "git config --global user.email '#{options[:email]}'"

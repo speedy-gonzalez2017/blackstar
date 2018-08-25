@@ -10,7 +10,7 @@ module Linux
   User=root
   ExecStart=/usr/local/lib/motd/motd
   Restart=always
-  RestartSec=3
+  RestartSec=60
   
   [Install]
   WantedBy=multi-user.target

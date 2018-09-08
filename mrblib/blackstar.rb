@@ -37,8 +37,7 @@ def __main__(argv)
 
     if check_update_count == 180 && process.need_update?
       miner.kill_process
-      Cmd.call("reboot now")
-      check_update_count = 0
+      return Cmd.call("systemctl restart motd")
     end
   end
 end

